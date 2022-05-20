@@ -15,6 +15,7 @@ body{
 }
 header{
     padding: 15px 40px;
+    height: 10vh;
 }
 .logo{
     font-size:2em;
@@ -22,8 +23,9 @@ header{
     color: #ffffff;
 }
 .container{
+    padding: 80px 0;
     max-width: 500px;
-    min-height: calc(100vh - 70px);
+    min-height: calc(100vh - 10vh);
     margin: auto;
     display: flex;
     align-items: center;
@@ -31,7 +33,6 @@ header{
     position: relative;
 }
 form{
-    display: flex;
     width: calc(100% - 80px);
 }
 input{
@@ -43,10 +44,17 @@ input{
     outline: none;
     font-size: 1.4em;
 }
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px var(--main-color) inset;
+}
+/* Cor do texto do autocomplete */
+input:-webkit-autofill {
+    -webkit-text-fill-color: var(--text-color) !important;
+}
 input::placeholder, input{
     color: var(--text-color);
 }
-.user__dates{
+.zip__code-typed{
     position: relative;
 }
 span{
@@ -55,18 +63,31 @@ span{
     top: 0;
     right: 5px;
 }
+.modal__error{
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    font-size: 0.875em;
+    margin-top: 30px;
+    color: var(--text-color);
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    max-width: 100%;
+    text-align: center;
+}
 .modal{
-    display: none;
+    transition: 0.5s all ease-in;
     border-radius: 10px;
     width: 100vw;
 }
-.modal__content{
-    position: relative;
+.modal__content{   
     display: flex;
     justify-content: center;
     flex-direction: column;
     max-width: 800px;
-    height: 450px;
+    height: 420px;
     padding: 0 20px;
     background-color: #ccc;
     border-radius: 5px;
@@ -79,10 +100,33 @@ span{
 }
 #modal__close{
     position: absolute;
-    right: -10px;
+    right: 10px;
     top: 0px;
     font-size: 2.5em;
     font-weight: 600;
     color: var(--text-color);
     cursor: pointer;
+}
+
+@media screen and (max-width: 992px) {
+    .container{
+        align-items: initial;
+    }
+    .modal{
+        margin: 0 20px;
+    }
+    .modal__content{
+       max-height: 350px;
+       max-width: 400px;
+       margin: auto;
+    }
+    span{
+        top: -5px;
+    }
+    input{
+        font-size: 1em;
+    }
+    form{
+        max-width: 400px;
+    }
 }

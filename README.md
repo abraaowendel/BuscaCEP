@@ -6,7 +6,7 @@
     O BuscaCep retorna informações sobre um determinado CEP válido.
 </h4>
 
-<h4 align="center"><a href="https://abraaowendel.github.io/buscacep/" target="_blank">Clique para visitar o projeto</a></h4>
+<h4 align="center"><a href="https://abraaowendel.github.io/BuscaCEP/" target="_blank">Clique para visitar o projeto</a></h4>
 
 ## 📚 Funcionalidades
 

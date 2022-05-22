@@ -1,5 +1,5 @@
 
-const isValid = (cep) => {
+const isValid = async (cep) => {
     const regex = /^[0-9]+$/
     return cep.length === 8 && regex.test(cep)? true:false
 }
@@ -7,8 +7,9 @@ const isValid = (cep) => {
 const searchCEP = async () => {
     const cep = document.querySelector('#cep').value
     const viaCepUrl = `https://viacep.com.br/ws/${cep}/json/`
-    try{
-        if(isValid(cep)){
+    try {
+
+        if(await isValid(cep)){
             const adress = await fetch(viaCepUrl)
             const resultAdress = await adress.json();
             if(resultAdress.hasOwnProperty('erro')){
@@ -28,7 +29,7 @@ const searchCEP = async () => {
                 "message": "CEP inválido"
             }
         }
-    }catch (error) {
+    } catch (error) {
         cleanError();
         showError(error.message);
     }
@@ -69,7 +70,7 @@ const creatModal = async (result) =>{
     document.getElementById('street').value = `${isEmpty(result.logradouro)}`;
     document.getElementById('district').value = isEmpty(result.bairro);
     document.getElementById('city').value = isEmpty(result.localidade);
-    document.getElementById('state').value = isEmpty(result.uf);
+    document.getElementById('state').value = await formatState(result.uf);
     document.getElementById('modal__close').addEventListener('click', removeModal)
 }
 
@@ -97,3 +98,90 @@ const clearSearchCEP = () =>{
 const search = document.querySelector('#search__cep').addEventListener('click', searchCEP)
 const form = document.querySelector('form')
 form.addEventListener('submit', (event) => event.preventDefault())
+
+const formatState = async (state) =>{
+    switch(state){
+        case "AC":
+            state = "Acre";
+            break
+        case "AL":
+            state = "Alagoas";
+            break
+        case "AP":
+            state = "Amapá";
+            break
+        case "AM":
+            state = "Amazonas";
+            break
+        case "BA":
+            state = "Bahia";
+            break
+        case "CE":
+            state = "Ceará";
+            break
+        case "DF":
+            state = "Distrito Federal";
+            break
+        case "ES":
+            state = "Espirito Santo";
+            break
+        case "GO":
+            state = "Goiânia";
+            break
+        case "MA":
+            state = "São Luís";
+            break
+        case "MT":
+            state = "Cuiabá";
+            break
+        case "MS":
+            state = "Campo Grande";
+            break
+        case "MG":
+            state = "Belo Horizonte";
+            break
+        case "PA":;
+            state = "Belém"
+            break
+        case "PB":
+            state = "João Pessoa";
+            break
+        case "PR":
+            state = "Curitiba";
+            break
+        case "PE":
+            state = "Recife";
+            break
+        case "PI":
+            state = "Teresina";
+            break
+        case "RJ":
+            state = "Rio de Janeiro";
+            break
+        case "RN":
+            state = "Natal";
+            break
+        case "RS":
+            state = "Porto Alegre";
+            break
+        case "RO":
+            state = "Porto Velho";
+            break
+        case "RR":
+            state = "Boa Vista";
+            break
+        case "SC":
+            state = "Florianópolis";
+            break
+        case "SP":
+            state = "São Paulo";
+            break
+        case "SE":
+            state = "Aracaju";
+            break
+        case "TO":
+            state = "Palmas";
+            break
+    }
+    return state
+} 
